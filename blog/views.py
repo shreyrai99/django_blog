@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.generic import (
@@ -9,13 +9,18 @@ from django.views.generic import (
     DeleteView
 )
 from .models import Post
-
+from django.views.generic import TemplateView
+from django.core.files.storage import FileSystemStorage
+from .forms import BookForm
+from .models import Book
 
 def home(request):
     context = {
         'posts': Post.objects.all()
     }
     return render(request, 'blog/home.html', context)
+
+
 
 
 class PostListView(ListView):
@@ -77,4 +82,47 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def about(request):
-    return render(request, 'blog/about.html', {'title': 'About'})
+    return render(request, 'blog/about.html', {'title': 'Developer'})
+
+def quiz(request):
+    return render(request, 'blog/quiz.html', {'title': 'Quiz'})
+
+def upload(request):
+    context = {}
+    if request.method == 'POST':
+        uploaded_file = request.FILES['document']
+        fs = FileSystemStorage()
+        name = fs.save(uploaded_file.name, uploaded_file)
+        context['url'] = fs.url(name)
+    return render(request, 'blog/upload.html',context)
+
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, 'blog/book_list.html', {
+        'books': books
+    })
+    
+def upload_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+        form = BookForm()
+    return render(request, 'blog/upload_book.html', {
+        'form': form
+    })
+
+def delete_book(request, pk):
+    if request.method == 'POST':
+        book = Book.objects.get(pk=pk)
+        book.delete()
+    return redirect('book_list')
+    
+    
+    
+    
+    
+    
+    
