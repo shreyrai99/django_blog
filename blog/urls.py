@@ -22,4 +22,9 @@ urlpatterns = [
     path('books/', views.book_list, name='book_list'),
     path('books/upload', views.upload_book, name='upload_book'),
     path('books/<int:pk>', views.delete_book, name='delete_book'),
+    path('index/', views.index, name='index'),
+    path('<int:question_id>/detail', views.detail, name='detail'),
+    path('<int:question_id>/results/', views.results, name='results'),
+    path('<int:question_id>/rper/', views.rper, name='rper'),
+    path('<int:question_id>/vote/', views.vote, name='vote'),
 ]

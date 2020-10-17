@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<h1 class="mb-5 text-center">Thanks for voting. Your Response has been recorded for the below question: </h1>
+<h2 class='text-muted'>{{ question.question_text }}</h2>
+
+<ul class="list-group mb-5">
+	{% for choice in question.choice_set.all %}
+	<li class="list-group-item">
+		{{ choice.choice_text }}  <span class="badge badge-success float-right">{{ choice.votes }} vote{{ choice.votes | pluralize }}</span>
+	</li>
+	{% endfor %}
+</ul>
+
+<a class="btn btn-secondary" href="{% url 'index' %}">Back To Question List</a>
+
+{% endblock %}
