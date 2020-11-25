@@ -116,6 +116,13 @@ There was a need of a platform which was solely dedicated to education and where
 ![Screenshot (215)](https://user-images.githubusercontent.com/51885421/100228994-8c6cf100-2f49-11eb-8476-f9e2bb36e9a6.png)
 
 
+## Developer Page
+
+
+![Screenshot (205)](https://user-images.githubusercontent.com/51885421/100254138-f09ead80-2f67-11eb-9d54-d56e5b8143d2.png)
+
+
+
 ## Future Scope
 
 I will add a Quiz application in this website where users can give mock quizes to improve their learning ability and thus test their skills.
